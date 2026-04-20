@@ -28,3 +28,47 @@ copy Customer_Table from 'E:\Program Files\PostgreSQL\18\data\copytext.txt' Deli
 --- Note :- '&' as Delimiter => Error.
 
 
+--- Select one Column ---
+
+select First_Name from Customer_Table;
+
+--- Select multiple columns ---
+
+select First_Name,Last_Name from Customer_Table;
+
+--- Select all columns ---
+
+select * from Customer_Table;
+
+
+--- To Eliminate Duplicate Records --
+
+--- Select one Column ---
+
+select distinct First_Name from Customer_Table;
+
+--- Select muliple Columns --
+
+select distinct First_Name, Age from Customer_Table;
+
+--- Fetch Based on uniqueId ---
+
+Select distinct * from Customer_Table;
+
+
+--- Equals To Condition ---
+
+Select First_Name from Customer_Table where age = 25;
+
+--- Less than/Greater than condition ---
+
+Select First_Name, Age from Customer_Table where age>25;
+
+--- Matching text condition ---
+
+Select * from Customer_Table where First_Name='Pankaj';
+
+
+--- AND & OR Operator ---
+
+Select First_Name , Last_Name where Customer_Table where Age>20 and Age<30;
