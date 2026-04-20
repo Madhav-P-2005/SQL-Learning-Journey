@@ -71,4 +71,6 @@ Select * from Customer_Table where First_Name='Pankaj';
 
 --- AND & OR Operator ---
 
-Select First_Name , Last_Name where Customer_Table where Age>20 and Age<30;
+Select First_Name , Last_Name , Age from Customer_Table where Age>20 and Age<30;
+
+Select First_Name , Last_Name , Age from Customer_Table where Age<20 or age>=30;
