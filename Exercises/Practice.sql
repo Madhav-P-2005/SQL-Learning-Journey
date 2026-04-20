@@ -78,3 +78,15 @@ Select First_Name , Last_Name , Age from Customer_Table where Age<20 or age>=30;
 Select First_Name, Last_Name, Age from Customer_Table where NOT age=25;
 
 Select First_Name, Last_Name, Age from Customer_Table where not age=25 and not First_Name='Jay';
+
+
+--- UPDATE Query --- 
+--- Single Row (With Column Names Specified) ---
+
+Select * from Customer_Table where Cust_id=2;
+
+Update Customer_Table set Age=17, Last_Name='Pe' where Cust_id=2;
+
+--- Multiple Rows ---
+
+update Customer_Table set email_id='gee@xyz.com' where First_Name='Gee' or First_Name='gee';
