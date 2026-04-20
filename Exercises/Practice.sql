@@ -69,8 +69,12 @@ Select First_Name, Age from Customer_Table where age>25;
 Select * from Customer_Table where First_Name='Pankaj';
 
 
---- AND & OR Operator ---
+--- AND , OR and NOT Operator ---
 
 Select First_Name , Last_Name , Age from Customer_Table where Age>20 and Age<30;
 
 Select First_Name , Last_Name , Age from Customer_Table where Age<20 or age>=30;
+
+Select First_Name, Last_Name, Age from Customer_Table where NOT age=25;
+
+Select First_Name, Last_Name, Age from Customer_Table where not age=25 and not First_Name='Jay';
