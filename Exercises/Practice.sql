@@ -90,3 +90,33 @@ Update Customer_Table set Age=17, Last_Name='Pe' where Cust_id=2;
 --- Multiple Rows ---
 
 update Customer_Table set email_id='gee@xyz.com' where First_Name='Gee' or First_Name='gee';
+
+
+---  DELETE Query ---
+
+--- Single Row ---
+
+Delete from Customer_Table where Cust_Id=6;
+
+--- Multiple Rows --- 
+
+delete from Customer_Table where age>25;
+
+--- All rows ---
+
+delete from customer_Table;
+
+
+--- Alter Query ---
+
+Select * from Customer_Table;
+
+--- Add Column ---
+
+alter table Customer_Table add test varchar(255);
+
+--- Delete Column ---
+
+alter table Customer_Table drop test;
+
+alter table Customer_table drop column test;
