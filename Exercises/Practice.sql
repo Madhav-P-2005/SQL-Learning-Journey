@@ -120,3 +120,51 @@ alter table Customer_Table add test varchar(255);
 alter table Customer_Table drop test;
 
 alter table Customer_table drop column test;
+
+--- Adding a Data Type --- 
+
+alter table Customer_Table alter column age type varchar(255);
+
+--- Rename a Column --- 
+
+alter table Customer_Table rename column email_id to customer_email_id;
+
+--- Add a Constraint ---
+
+alter table Customer_Table alter column cust_id set not null;
+
+insert into Customer_Table(first_name,last_name,age,customer_email_id) values('Madhav','P',20,'madhavp@gmail.com');
+
+--- Remove a Constraint ---
+
+alter table Customer_Table alter column cust_id drop not null;
+
+insert into Customer_Table(first_name,last_name,age,customer_email_id) values('Madhav','P',20,'madhavp@gmail.com');
+
+
+-- Add a CHECK constraint ---
+
+ALTER TABLE Customer_Table ADD CONSTRAINT chk_cust_id CHECK (cust_id > 0);  --- My Way ---
+
+alter table Customer_Table add constraint cust_id check (cust_id>0);
+
+insert into Customer_Table values(-1,'Madhav','P',20,'madhavp@gmail.com');
+
+--- Add a Primary Key ---
+
+alter table Customer_Table add primary key (cust_id);
+
+--- Add a Foreign Key ---
+
+-- First create a parent table to reference
+create table Orders(
+    order_id int primary key,
+    cust_id int,
+    order_date date
+);
+
+-- Now add foreign key on Orders referencing Customer_Table
+alter table Orders 
+add constraint fk_customer 
+foreign key (cust_id)            -- column in THIS (child) table
+references Customer_Table(cust_id); -- column in PARENT table
