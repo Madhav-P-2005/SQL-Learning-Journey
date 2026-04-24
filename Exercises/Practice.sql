@@ -168,3 +168,53 @@ alter table Orders
 add constraint fk_customer 
 foreign key (cust_id)            -- column in THIS (child) table
 references Customer_Table(cust_id); -- column in PARENT table
+
+
+
+-------   SuperMart_DB (Practice) -----
+
+Select * from Customer;
+
+Select * from Product;
+
+Select * from Sales;
+
+
+--- IN Operator  --- 
+
+--- IN is Basically a Replacement for Multiple OR's ---
+select * from Customer where city in ('Philadelphia' , 'Seattle');
+
+select * from Customer where city = 'Philadelphia' or city='Seattle';
+
+
+--- Between Operator (for finding Range) ---
+
+--- Between is Basically a Replacement for Multiple OR's ---
+Select * from Customer where age between 20 and 30;
+
+Select * from Customer where age>=20 and age<=30;
+
+--- Clubbing Between and Not Statement ---
+
+Select * from Customer where age not Between 20 and 30;
+
+--- Using with Date ---
+
+Select * from Sales;
+
+Select * from Sales where ship_date between '2015-04-01' and '2016-04-01';
+
+--- LIKE Operator (Pattern Matching using WildCards) ---
+
+Select Customer_Name from Customer where Customer_Name LIKE 'J%';
+
+Select Customer_Name from Customer where Customer_Name LIKE '%Nelson%';
+
+Select Customer_Name from Customer where Customer_Name LIKE '____%';
+
+--- Cubbing With LIKE and NOT Operator --- 
+Select distinct City from Customer where City not Like 'S%';
+
+--- Finding Out Customer Name With G% ? ---
+Select * from Customer where Customer_Name LIKE 'G\%';
