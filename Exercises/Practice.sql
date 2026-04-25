@@ -218,3 +218,26 @@ Select distinct City from Customer where City not Like 'S%';
 
 --- Finding Out Customer Name With G% ? ---
 Select * from Customer where Customer_Name LIKE 'G\%';
+
+
+--- Order By Operator --- 
+
+Select * from Customer where state='California' order by Customer_Name;
+
+Select * from Customer where state='California' order by Customer_Name DESC;
+
+Select * from Customer where state='California' order by Customer_Name DESC;
+
+Select * from Customer order by city asc, customer_name desc;
+
+Select * from Customer order by 2 desc;
+
+Select * from Customer where age>=20 order by city asc,customer_name desc;
+
+Select * from Customer order by age desc;
+
+--- LIMIT Operator ---
+
+Select * from Customer where age>=25 order by age desc limit 8;
+
+Select * from Customer where age>=25 order by age asc limit 10;
