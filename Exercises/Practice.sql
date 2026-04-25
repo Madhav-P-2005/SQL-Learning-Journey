@@ -241,3 +241,8 @@ Select * from Customer order by age desc;
 Select * from Customer where age>=25 order by age desc limit 8;
 
 Select * from Customer where age>=25 order by age asc limit 10;
+
+
+--- AS Operator (Alias) ---
+
+select customer_id as "Serial Number", customer_name as "Name" , age as "Customer Age" from Customer;
