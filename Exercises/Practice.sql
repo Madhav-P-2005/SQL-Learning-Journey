@@ -275,3 +275,12 @@ Select min(sales) as "Minimum Sales of June15" from Sales where order_date betwe
 Select sales from Sales where order_date between '2015-06-01' and '2015-06-30' order by sales asc;
 
 Select max(sales) as "Maximum Sales of June 15" from Sales where order_date between '2015-06-01' and '2015-06-30';
+
+
+--- Group By Clause ---
+
+Select region , state ,  count(Customer_id) as "Customer Count" from Customer group by region, state;
+
+Select product_id , sum(quantity) as "Quantity Sold" from Sales group by product_id order by "Quantity Sold" desc; 
+
+Select customer_id, min(sales) as "Minimum Sales" , max(sales) as "Maximum Sales" , avg(sales) as "Average Sales", sum(sales) as "Total Sales" from Sales group by customer_id order by "Total Sales" desc limit 5;
