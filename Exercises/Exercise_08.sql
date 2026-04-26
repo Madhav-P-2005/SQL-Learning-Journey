@@ -3,11 +3,11 @@
 1. Find the sum of all ‘sales’ values.
 
 2. Find count of the number of customers in north region with age 
-between 20 and 30
+between 20 and 30.
 
-3. Find the average age of East region customers
+3. Find the average age of East region customers.
 
-4. Find the Minimum and Maximum aged customer from Philadelphia
+4. Find the Minimum and Maximum aged customer from Philadelphia.
 
 */
 
