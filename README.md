@@ -1,4 +1,4 @@
-# SQL (PostgrelSQL) Learning Journey
+# SQL (PostgreSQL) Learning Journey
 
 ## Goal
 To master SQL for backend development and data engineering roles.
