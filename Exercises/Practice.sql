@@ -284,3 +284,8 @@ Select region , state ,  count(Customer_id) as "Customer Count" from Customer gr
 Select product_id , sum(quantity) as "Quantity Sold" from Sales group by product_id order by "Quantity Sold" desc; 
 
 Select customer_id, min(sales) as "Minimum Sales" , max(sales) as "Maximum Sales" , avg(sales) as "Average Sales", sum(sales) as "Total Sales" from Sales group by customer_id order by "Total Sales" desc limit 5;
+
+
+--- Having Clause (adding conditions in aggregate function) --- 
+
+Select region , count(customer_id) as "Customer_Count" from customer group by region having count(customer_id) > 200;
