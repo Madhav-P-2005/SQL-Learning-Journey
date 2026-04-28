@@ -289,3 +289,5 @@ Select customer_id, min(sales) as "Minimum Sales" , max(sales) as "Maximum Sales
 --- Having Clause (adding conditions in aggregate function) --- 
 
 Select region , count(customer_id) as "Customer_Count" from customer group by region having count(customer_id) > 200;
+
+Select region , count(customer_id) as "Customer_Count" from Customer where customer_name like 'A%' group by region having count(customer_id)>15;
