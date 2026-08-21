@@ -291,3 +291,13 @@ Select customer_id, min(sales) as "Minimum Sales" , max(sales) as "Maximum Sales
 Select region , count(customer_id) as "Customer_Count" from customer group by region having count(customer_id) > 200;
 
 Select region , count(customer_id) as "Customer_Count" from Customer where customer_name like 'A%' group by region having count(customer_id)>15;
+
+
+--- CASE Expressions (if/else Statements)
+
+Select * , CASE 
+            when age<30 THEN 'Young' 
+			when age>60 THEN 'Senior Citizen' 
+			else 'Middle aged' 
+			END AS Age_Category 
+from customer;
