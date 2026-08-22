@@ -1,303 +1,524 @@
---- Creation of the Database with Columns --- 
-
-create table Customer_Table(Cust_id int, First_Name varchar,Last_Name varchar,Age int,Email_Id varchar);
-
----- Desc Database ---
-
-Select * from Customer_Table;
-
------------------------------------------------
-
---- Single Row (Without Columns names Specified) 
-insert into Customer_Table values(1,'Raj','Kapoor',40,'rajkapoor@gmail.com');
-
---- Single Row (With Columns Specified)
-insert into Customer_Table(Cust_id,First_Name,Last_Name,Age,Email_Id)values(2,'Karan','Jha',35,'karanjha@gmail.com');
-
---- Multiple Rows -------
-insert into Customer_Table values(3, 'Pankaj', 'Tripati', 25,'pankajtripati@gmail.com'),(4, 'Shruti', 'Hasan', 38,'shrutihasan@gmail.com'),(5,'Kabir','Das',50,'kabirdas@gmail.com');
-
----  Import Data(CSV & TEXT) from File Using Copy Command  --- 
-
-copy Customer_Table from 'E:\Program Files\PostgreSQL\18\data\copy.csv' Delimiter ',' csv header; 
-
----- Text Data ---
-
-copy Customer_Table from 'E:\Program Files\PostgreSQL\18\data\copytext.txt' Delimiter ',';
-
---- Note :- '&' as Delimiter => Error.
-
-
---- Select one Column ---
-
-select First_Name from Customer_Table;
-
---- Select multiple columns ---
-
-select First_Name,Last_Name from Customer_Table;
-
---- Select all columns ---
-
-select * from Customer_Table;
-
-
---- To Eliminate Duplicate Records --
-
---- Select one Column ---
-
-select distinct First_Name from Customer_Table;
-
---- Select muliple Columns --
-
-select distinct First_Name, Age from Customer_Table;
-
---- Fetch Based on uniqueId ---
-
-Select distinct * from Customer_Table;
-
-
---- Equals To Condition ---
-
-Select First_Name from Customer_Table where age = 25;
-
---- Less than/Greater than condition ---
-
-Select First_Name, Age from Customer_Table where age>25;
-
---- Matching text condition ---
-
-Select * from Customer_Table where First_Name='Pankaj';
-
-
---- AND , OR and NOT Operator ---
-
-Select First_Name , Last_Name , Age from Customer_Table where Age>20 and Age<30;
-
-Select First_Name , Last_Name , Age from Customer_Table where Age<20 or age>=30;
-
-Select First_Name, Last_Name, Age from Customer_Table where NOT age=25;
-
-Select First_Name, Last_Name, Age from Customer_Table where not age=25 and not First_Name='Jay';
-
-
---- UPDATE Query --- 
---- Single Row (With Column Names Specified) ---
-
-Select * from Customer_Table where Cust_id=2;
-
-Update Customer_Table set Age=17, Last_Name='Pe' where Cust_id=2;
-
---- Multiple Rows ---
-
-update Customer_Table set email_id='gee@xyz.com' where First_Name='Gee' or First_Name='gee';
-
-
----  DELETE Query ---
-
---- Single Row ---
-
-Delete from Customer_Table where Cust_Id=6;
-
---- Multiple Rows --- 
-
-delete from Customer_Table where age>25;
-
---- All rows ---
-
-delete from customer_Table;
-
-
---- Alter Query ---
-
-Select * from Customer_Table;
-
---- Add Column ---
-
-alter table Customer_Table add test varchar(255);
-
---- Delete Column ---
-
-alter table Customer_Table drop test;
-
-alter table Customer_table drop column test;
-
---- Adding a Data Type --- 
-
-alter table Customer_Table alter column age type varchar(255);
-
---- Rename a Column --- 
-
-alter table Customer_Table rename column email_id to customer_email_id;
-
---- Add a Constraint ---
-
-alter table Customer_Table alter column cust_id set not null;
-
-insert into Customer_Table(first_name,last_name,age,customer_email_id) values('Madhav','P',20,'madhavp@gmail.com');
-
---- Remove a Constraint ---
-
-alter table Customer_Table alter column cust_id drop not null;
-
-insert into Customer_Table(first_name,last_name,age,customer_email_id) values('Madhav','P',20,'madhavp@gmail.com');
-
-
--- Add a CHECK constraint ---
-
-ALTER TABLE Customer_Table ADD CONSTRAINT chk_cust_id CHECK (cust_id > 0);  --- My Way ---
-
-alter table Customer_Table add constraint cust_id check (cust_id>0);
-
-insert into Customer_Table values(-1,'Madhav','P',20,'madhavp@gmail.com');
-
---- Add a Primary Key ---
-
-alter table Customer_Table add primary key (cust_id);
-
---- Add a Foreign Key ---
-
--- First create a parent table to reference
-create table Orders(
-    order_id int primary key,
-    cust_id int,
-    order_date date
+--- SQL PRACTICE ---
+
+--- CREATE TABLE & INSERT DATA ---
+
+-- Create a table with basic customer information
+CREATE TABLE Customer_Table (
+    Cust_id INT,
+    First_Name VARCHAR,
+    Last_Name VARCHAR,
+    Age INT,
+    Email_Id VARCHAR
 );
 
--- Now add foreign key on Orders referencing Customer_Table
-alter table Orders 
-add constraint fk_customer 
-foreign key (cust_id)            -- column in THIS (child) table
-references Customer_Table(cust_id); -- column in PARENT table
+-- View table data
+SELECT * FROM Customer_Table;
+
+--- INSERT DATA ---
+
+-- Single row without specifying column names
+INSERT INTO Customer_Table
+VALUES (1, 'Raj', 'Kapoor', 40, 'rajkapoor@gmail.com');
 
+-- Single row with column names specified
+INSERT INTO Customer_Table (Cust_id, First_Name, Last_Name, Age, Email_Id)
+VALUES (2, 'Karan', 'Jha', 35, 'karanjha@gmail.com');
 
+-- Insert multiple rows
+INSERT INTO Customer_Table
+VALUES
+    (3, 'Pankaj', 'Tripati', 25, 'pankajtripati@gmail.com'),
+    (4, 'Shruti', 'Hasan', 38, 'shrutihasan@gmail.com'),
+    (5, 'Kabir', 'Das', 50, 'kabirdas@gmail.com');
+
+--- IMPORT DATA USING COPY ---
+
+-- Import CSV data
+COPY Customer_Table
+FROM 'E:\Program Files\PostgreSQL\18\data\copy.csv'
+DELIMITER ','
+CSV HEADER;
+
+-- Import text data
+COPY Customer_Table
+FROM 'E:\Program Files\PostgreSQL\18\data\copytext.txt'
+DELIMITER ',';
+
+-- Note: '&' as a delimiter will cause an error if the file format does not match.
+
+--- SELECT ---
+
+-- Select one column
+SELECT First_Name
+FROM Customer_Table;
 
--------   SuperMart_DB (Practice) -----
+-- Select multiple columns
+SELECT First_Name, Last_Name
+FROM Customer_Table;
 
-Select * from Customer;
+-- Select all columns
+SELECT *
+FROM Customer_Table;
 
-Select * from Product;
+--- DISTINCT ---
 
-Select * from Sales;
+-- Remove duplicate values from one column
+SELECT DISTINCT First_Name
+FROM Customer_Table;
 
+-- DISTINCT applies to the combination of selected columns
+SELECT DISTINCT First_Name, Age
+FROM Customer_Table;
 
---- IN Operator  --- 
+-- DISTINCT * removes completely duplicate rows
+SELECT DISTINCT *
+FROM Customer_Table;
 
---- IN is Basically a Replacement for Multiple OR's ---
-select * from Customer where city in ('Philadelphia' , 'Seattle');
+--- WHERE CONDITIONS ---
 
-select * from Customer where city = 'Philadelphia' or city='Seattle';
+-- Equals to
+SELECT First_Name
+FROM Customer_Table
+WHERE Age = 25;
 
+-- Greater than
+SELECT First_Name, Age
+FROM Customer_Table
+WHERE Age > 25;
 
---- Between Operator (for finding Range) ---
+-- Matching text
+SELECT *
+FROM Customer_Table
+WHERE First_Name = 'Pankaj';
 
---- Between is Basically a Replacement for Multiple OR's ---
-Select * from Customer where age between 20 and 30;
+--- AND / OR / NOT ---
 
-Select * from Customer where age>=20 and age<=30;
+-- AND: both conditions must be true
+SELECT First_Name, Last_Name, Age
+FROM Customer_Table
+WHERE Age > 20
+  AND Age < 30;
 
---- Clubbing Between and Not Statement ---
+-- OR: at least one condition must be true
+SELECT First_Name, Last_Name, Age
+FROM Customer_Table
+WHERE Age < 20
+   OR Age >= 30;
 
-Select * from Customer where age not Between 20 and 30;
+-- NOT: reverses the condition
+SELECT First_Name, Last_Name, Age
+FROM Customer_Table
+WHERE NOT Age = 25;
 
---- Using with Date ---
+-- Combining NOT with AND
+SELECT First_Name, Last_Name, Age
+FROM Customer_Table
+WHERE NOT Age = 25
+  AND NOT First_Name = 'Jay';
 
-Select * from Sales;
+--- UPDATE ---
 
-Select * from Sales where ship_date between '2015-04-01' and '2016-04-01';
+-- Check the row before updating
+SELECT *
+FROM Customer_Table
+WHERE Cust_id = 2;
 
---- LIKE Operator (Pattern Matching using WildCards) ---
+-- Update a single row
+UPDATE Customer_Table
+SET Age = 17,
+    Last_Name = 'Pe'
+WHERE Cust_id = 2;
 
-Select Customer_Name from Customer where Customer_Name LIKE 'J%';
+-- Update multiple rows
+UPDATE Customer_Table
+SET Email_Id = 'gee@xyz.com'
+WHERE First_Name = 'Gee'
+   OR First_Name = 'gee';
 
-Select Customer_Name from Customer where Customer_Name LIKE '%Nelson%';
+--- DELETE ---
 
-Select Customer_Name from Customer where Customer_Name LIKE '____%';
+-- Delete a single row
+DELETE FROM Customer_Table
+WHERE Cust_Id = 6;
 
---- Cubbing With LIKE and NOT Operator --- 
-Select distinct City from Customer where City not Like 'S%';
+-- Delete multiple rows
+DELETE FROM Customer_Table
+WHERE Age > 25;
 
---- Finding Out Customer Name With G% ? ---
-Select * from Customer where Customer_Name LIKE 'G\%';
+-- Delete all rows from the table
+DELETE FROM Customer_Table;
 
+--- ALTER TABLE ---
 
---- Order By Operator --- 
+SELECT *
+FROM Customer_Table;
 
-Select * from Customer where state='California' order by Customer_Name;
+--- ADD COLUMN ---
 
-Select * from Customer where state='California' order by Customer_Name DESC;
+ALTER TABLE Customer_Table
+ADD test VARCHAR(255);
 
-Select * from Customer where state='California' order by Customer_Name DESC;
+--- DROP COLUMN ---
 
-Select * from Customer order by city asc, customer_name desc;
+ALTER TABLE Customer_Table
+DROP COLUMN test;
 
-Select * from Customer order by 2 desc;
+--- CHANGE DATA TYPE ---
 
-Select * from Customer where age>=20 order by city asc,customer_name desc;
+ALTER TABLE Customer_Table
+ALTER COLUMN Age TYPE VARCHAR(255);
 
-Select * from Customer order by age desc;
+--- RENAME COLUMN ---
 
---- LIMIT Operator ---
+ALTER TABLE Customer_Table
+RENAME COLUMN Email_Id TO Customer_Email_Id;
 
-Select * from Customer where age>=25 order by age desc limit 8;
+--- CONSTRAINTS ---
 
-Select * from Customer where age>=25 order by age asc limit 10;
+--- NOT NULL ---
 
+-- Add NOT NULL constraint
+ALTER TABLE Customer_Table
+ALTER COLUMN Cust_id SET NOT NULL;
 
---- AS Operator (Alias) ---
+-- This will fail because Cust_id is NULL
+INSERT INTO Customer_Table
+    (First_Name, Last_Name, Age, Customer_Email_Id)
+VALUES
+    ('Madhav', 'P', 20, 'madhavp@gmail.com');
 
-select customer_id as "Serial Number", customer_name as "Name" , age as "Customer Age" from Customer;
+-- Remove NOT NULL constraint
+ALTER TABLE Customer_Table
+ALTER COLUMN Cust_id DROP NOT NULL;
 
+-- Now NULL Cust_id values are allowed
+INSERT INTO Customer_Table
+    (First_Name, Last_Name, Age, Customer_Email_Id)
+VALUES
+    ('Madhav', 'P', 20, 'madhavp@gmail.com');
 
---- Aggregate Functions ---
+--- CHECK CONSTRAINT ---
 
---- COUNT Function ---
+-- Add a CHECK constraint
+ALTER TABLE Customer_Table
+ADD CONSTRAINT chk_cust_id
+CHECK (Cust_id > 0);
 
-Select count(*) as "Total No of Sales" from Sales;
+-- This will fail because Cust_id is not greater than 0
+INSERT INTO Customer_Table
+VALUES (-1, 'Madhav', 'P', 20, 'madhavp@gmail.com');
 
-Select count(order_line) as "Number of Products Orders" , count(Distinct order_id) as "Number of Orders" from Sales where Customer_id='CG-12520';
+--- PRIMARY KEY ---
 
---- SUM Function ---
+ALTER TABLE Customer_Table
+ADD PRIMARY KEY (Cust_id);
 
-Select sum(profit) as "Total Profit" from Sales;
+--- FOREIGN KEY ---
 
-Select SUM(quantity) as "Total Quantity" from Sales where Product_id='FUR-TA-10000577';
+-- Create a child table
+CREATE TABLE Orders (
+    order_id INT PRIMARY KEY,
+    cust_id INT,
+    order_date DATE
+);
 
---- AVERAGE Function ---
+-- Add a foreign key referencing the parent table
+ALTER TABLE Orders
+ADD CONSTRAINT fk_customer
+FOREIGN KEY (cust_id)
+REFERENCES Customer_Table (Cust_id);
 
-Select avg(age) as "Average Customer Age" from Customer;
+--- SUPERMART DATABASE ---
 
-Select avg(sales * 0.10) as "Average Sales Commission" from Sales;
+SELECT * FROM Customer;
+SELECT * FROM Product;
+SELECT * FROM Sales;
 
---- MIN & MAX Functions ---
+--- IN OPERATOR ---
 
-Select min(sales) as "Minimum Sales of June15" from Sales where order_date between '2015-06-01' and '2015-06-30';
+-- IN is a shorter way to check multiple possible values
+SELECT *
+FROM Customer
+WHERE City IN ('Philadelphia', 'Seattle');
 
-Select sales from Sales where order_date between '2015-06-01' and '2015-06-30' order by sales asc;
+-- Equivalent OR condition
+SELECT *
+FROM Customer
+WHERE City = 'Philadelphia'
+   OR City = 'Seattle';
 
-Select max(sales) as "Maximum Sales of June 15" from Sales where order_date between '2015-06-01' and '2015-06-30';
+--- BETWEEN OPERATOR ---
 
+-- BETWEEN checks whether a value falls within a range
+SELECT *
+FROM Customer
+WHERE Age BETWEEN 20 AND 30;
 
---- Group By Clause ---
+-- Equivalent condition
+SELECT *
+FROM Customer
+WHERE Age >= 20
+  AND Age <= 30;
 
-Select region , state ,  count(Customer_id) as "Customer Count" from Customer group by region, state;
+-- NOT BETWEEN excludes the specified range
+SELECT *
+FROM Customer
+WHERE Age NOT BETWEEN 20 AND 30;
 
-Select product_id , sum(quantity) as "Quantity Sold" from Sales group by product_id order by "Quantity Sold" desc; 
+--- BETWEEN WITH DATES ---
 
-Select customer_id, min(sales) as "Minimum Sales" , max(sales) as "Maximum Sales" , avg(sales) as "Average Sales", sum(sales) as "Total Sales" from Sales group by customer_id order by "Total Sales" desc limit 5;
+SELECT *
+FROM Sales
+WHERE Ship_Date BETWEEN '2015-04-01' AND '2016-04-01';
 
+--- LIKE OPERATOR ---
 
---- Having Clause (adding conditions in aggregate function) --- 
+-- Names starting with J
+SELECT Customer_Name
+FROM Customer
+WHERE Customer_Name LIKE 'J%';
 
-Select region , count(customer_id) as "Customer_Count" from customer group by region having count(customer_id) > 200;
+-- Names containing "Nelson"
+SELECT Customer_Name
+FROM Customer
+WHERE Customer_Name LIKE '%Nelson%';
 
-Select region , count(customer_id) as "Customer_Count" from Customer where customer_name like 'A%' group by region having count(customer_id)>15;
+-- Names with at least four characters
+SELECT Customer_Name
+FROM Customer
+WHERE Customer_Name LIKE '____%';
 
+--- LIKE WITH NOT ---
 
---- CASE Expressions (if/else Statements)
+-- Cities that do not start with S
+SELECT DISTINCT City
+FROM Customer
+WHERE City NOT LIKE 'S%';
 
-Select * , CASE 
-            when age<30 THEN 'Young' 
-			when age>60 THEN 'Senior Citizen' 
-			else 'Middle aged' 
-			END AS Age_Category 
-from customer;
+--- ESCAPING WILDCARDS ---
+
+-- Search for a literal % character
+SELECT *
+FROM Customer
+WHERE Customer_Name LIKE 'G\%';
+
+--- ORDER BY ---
+
+-- Sort customer names in ascending order
+SELECT *
+FROM Customer
+WHERE State = 'California'
+ORDER BY Customer_Name;
+
+-- Sort customer names in descending order
+SELECT *
+FROM Customer
+WHERE State = 'California'
+ORDER BY Customer_Name DESC;
+
+-- Multiple sorting conditions
+SELECT *
+FROM Customer
+ORDER BY City ASC, Customer_Name DESC;
+
+-- Sort using column position
+SELECT *
+FROM Customer
+ORDER BY 2 DESC;
+
+-- Filter and then sort by multiple columns
+SELECT *
+FROM Customer
+WHERE Age >= 20
+ORDER BY City ASC, Customer_Name DESC;
+
+-- Sort by age descending
+SELECT *
+FROM Customer
+ORDER BY Age DESC;
+
+--- LIMIT ---
+
+-- Get the 8 oldest customers with age >= 25
+SELECT *
+FROM Customer
+WHERE Age >= 25
+ORDER BY Age DESC
+LIMIT 8;
+
+-- Get the 10 youngest customers with age >= 25
+SELECT *
+FROM Customer
+WHERE Age >= 25
+ORDER BY Age ASC
+LIMIT 10;
+
+--- AS / ALIAS ---
+
+-- Rename columns in the result using aliases
+SELECT
+    Customer_ID AS "Serial Number",
+    Customer_Name AS "Name",
+    Age AS "Customer Age"
+FROM Customer;
+
+--- AGGREGATE FUNCTIONS ---
+
+--- COUNT ---
+
+-- Count all sales records
+SELECT COUNT(*) AS "Total No of Sales"
+FROM Sales;
+
+-- Count products/orders for a specific customer
+SELECT
+    COUNT(Order_Line) AS "Number of Products Ordered",
+    COUNT(DISTINCT Order_ID) AS "Number of Orders"
+FROM Sales
+WHERE Customer_ID = 'CG-12520';
+
+--- SUM ---
+
+-- Total profit
+SELECT SUM(Profit) AS "Total Profit"
+FROM Sales;
+
+-- Total quantity sold for a product
+SELECT SUM(Quantity) AS "Total Quantity"
+FROM Sales
+WHERE Product_ID = 'FUR-TA-10000577';
+
+--- AVG ---
+
+-- Average customer age
+SELECT AVG(Age) AS "Average Customer Age"
+FROM Customer;
+
+-- Average sales commission at 10%
+SELECT AVG(Sales * 0.10) AS "Average Sales Commission"
+FROM Sales;
+
+--- MIN / MAX ---
+
+-- Minimum sales in June 2015
+SELECT MIN(Sales) AS "Minimum Sales of June 15"
+FROM Sales
+WHERE Order_Date BETWEEN '2015-06-01' AND '2015-06-30';
+
+-- View June 2015 sales from lowest to highest
+SELECT Sales
+FROM Sales
+WHERE Order_Date BETWEEN '2015-06-01' AND '2015-06-30'
+ORDER BY Sales ASC;
+
+-- Maximum sales in June 2015
+SELECT MAX(Sales) AS "Maximum Sales of June 15"
+FROM Sales
+WHERE Order_Date BETWEEN '2015-06-01' AND '2015-06-30';
+
+--- GROUP BY ---
+
+-- Count customers by region and state
+SELECT
+    Region,
+    State,
+    COUNT(Customer_ID) AS "Customer Count"
+FROM Customer
+GROUP BY Region, State;
+
+-- Total quantity sold for each product
+SELECT
+    Product_ID,
+    SUM(Quantity) AS "Quantity Sold"
+FROM Sales
+GROUP BY Product_ID
+ORDER BY "Quantity Sold" DESC;
+
+-- Sales statistics for each customer
+SELECT
+    Customer_ID,
+    MIN(Sales) AS "Minimum Sales",
+    MAX(Sales) AS "Maximum Sales",
+    AVG(Sales) AS "Average Sales",
+    SUM(Sales) AS "Total Sales"
+FROM Sales
+GROUP BY Customer_ID
+ORDER BY "Total Sales" DESC
+LIMIT 5;
+
+--- HAVING ---
+
+-- HAVING filters groups after GROUP BY
+SELECT
+    Region,
+    COUNT(Customer_ID) AS "Customer_Count"
+FROM Customer
+GROUP BY Region
+HAVING COUNT(Customer_ID) > 200;
+
+-- WHERE filters rows before grouping;
+-- HAVING filters the resulting groups
+SELECT
+    Region,
+    COUNT(Customer_ID) AS "Customer_Count"
+FROM Customer
+WHERE Customer_Name LIKE 'A%'
+GROUP BY Region
+HAVING COUNT(Customer_ID) > 15;
+
+--- CASE EXPRESSION ---
+
+-- CASE works like an IF / ELSE condition
+SELECT
+    *,
+    CASE
+        WHEN Age < 30 THEN 'Young'
+        WHEN Age > 60 THEN 'Senior Citizen'
+        ELSE 'Middle aged'
+    END AS Age_Category
+FROM Customer;
+
+--- JOINS ---
+
+--- Preparing the data ---
+
+-- Create a table containing sales from 2015
+CREATE TABLE sales_2015 AS
+SELECT *
+FROM Sales
+WHERE Ship_Date BETWEEN '2015-01-01' AND '2015-12-31';
+
+SELECT COUNT(*) FROM sales_2015;                     -- 2131
+SELECT COUNT(DISTINCT Customer_ID) FROM sales_2015; -- 578
+
+-- Create a table containing customers aged 20 to 60
+CREATE TABLE customer_20_60 AS
+SELECT *
+FROM Customer
+WHERE Age BETWEEN 20 AND 60;
+
+SELECT COUNT(*) FROM customer_20_60;                 -- 597
+
+--- INNER JOIN ---
+
+-- Check customer IDs in both tables
+SELECT Customer_ID
+FROM sales_2015
+ORDER BY Customer_ID;
+
+SELECT Customer_ID
+FROM customer_20_60
+ORDER BY Customer_ID;
+
+-- INNER JOIN returns only matching records from both tables
+SELECT
+    a.Order_Line,
+    a.Product_ID,
+    a.Customer_ID,
+    a.Sales,
+    b.Customer_Name,
+    b.Age
+FROM sales_2015 AS a
+INNER JOIN customer_20_60 AS b
+    ON a.Customer_ID = b.Customer_ID
+ORDER BY a.Customer_ID;
