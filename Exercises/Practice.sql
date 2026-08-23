@@ -522,3 +522,23 @@ FROM sales_2015 AS a
 INNER JOIN customer_20_60 AS b
     ON a.Customer_ID = b.Customer_ID
 ORDER BY a.Customer_ID;
+
+-- LEFT JOIN :-  Returns all rows from the left table , even if there are no matches in the right table 
+
+/* 
+  AA-10315 not present in customer_20_60 table 
+  AA-10375 present in both
+  AA-10480 not present in sales_2015 table 
+*/
+
+SELECT
+    a.Order_Line,
+    a.Product_ID,
+    a.Customer_ID,
+    a.Sales,
+    b.Customer_Name,
+    b.Age
+FROM sales_2015 AS a
+LEFT join  customer_20_60 AS b
+    ON a.Customer_ID = b.Customer_ID
+ORDER BY a.Customer_ID;
