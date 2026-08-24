@@ -542,3 +542,32 @@ FROM sales_2015 AS a
 LEFT join  customer_20_60 AS b
     ON a.Customer_ID = b.Customer_ID
 ORDER BY a.Customer_ID;
+
+-- RIGHT JOIN :-  Returns all rows from the right table , even if there are no matches in the left table.
+
+SELECT
+    a.Order_Line,
+    a.Product_ID,
+    a.Customer_ID,
+    a.Sales,
+    b.Customer_Name,
+    b.Age
+FROM sales_2015 AS a
+right join  customer_20_60 AS b
+    ON a.Customer_ID = b.Customer_ID
+ORDER BY a.Customer_ID;
+
+-- FULL OUTER JOIN :-  Combines the results of both left and right outer joins.
+
+SELECT
+    a.order_line,
+    a.product_id,
+    a.customer_id,
+    a.sales,
+    b.customer_name,
+    b.age,
+	b.customer_id
+FROM sales_2015 AS a
+full join  customer_20_60 AS b
+    ON a.customer_id = b.customer_id
+ORDER BY a.customer_id , b.customer_id;
