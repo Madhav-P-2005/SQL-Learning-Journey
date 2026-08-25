@@ -499,8 +499,6 @@ WHERE Age BETWEEN 20 AND 60;
 
 SELECT COUNT(*) FROM customer_20_60;                 -- 597
 
---- INNER JOIN ---
-
 -- Check customer IDs in both tables
 SELECT Customer_ID
 FROM sales_2015
@@ -510,7 +508,8 @@ SELECT Customer_ID
 FROM customer_20_60
 ORDER BY Customer_ID;
 
--- INNER JOIN returns only matching records from both tables
+-- INNER JOIN :- returns only matching records from both tables
+
 SELECT
     a.Order_Line,
     a.Product_ID,
@@ -571,3 +570,27 @@ FROM sales_2015 AS a
 full join  customer_20_60 AS b
     ON a.customer_id = b.customer_id
 ORDER BY a.customer_id , b.customer_id;
+
+-- CROSS JOIN :-  Creates a cartesian product between two sets of data.
+
+create table month_values (MM integer);
+create table year_values (YYYY integer);
+
+insert into month_values values (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12);
+insert into year_values values (2011),(2012),(2013),(2014),(2015),(2016),(2017),(2018),(2019);
+
+select * from month_values;
+select * from year_values;
+
+select 
+    a.YYYY,
+	b.MM
+from year_values as a , month_values as b order by a.YYYY , b.MM;
+
+--- Combining Queries (intersect , except and Union):- Are used to combine the results of two SELECT queries 
+
+--- Intersect :- Is used to find the common rows from the results of two select queries 
+
+--- Intersect All :- Allows duplicates in the result . 
+
+select customer_id from sales_2015 intersect select customer_id from customer_20_60;
