@@ -14,3 +14,7 @@
 
 
 --- Answer ---
+
+Select * from customer;
+Select * from products;
+Select * from sales;
