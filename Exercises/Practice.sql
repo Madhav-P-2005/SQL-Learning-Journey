@@ -594,3 +594,17 @@ from year_values as a , month_values as b order by a.YYYY , b.MM;
 --- Intersect All :- Allows duplicates in the result . 
 
 select customer_id from sales_2015 intersect select customer_id from customer_20_60;
+
+--- Except :- Is used to return all rows in the first Select statement that are not returned by the second Select statement.
+
+select customer_id from sales_2015
+except 
+select customer_id from customer_20_60
+order by customer_id;
+
+--- UNION :- Is used to combine the result sets of 2 or more select statements . It removes duplicate rows between the various select statements.
+
+Select customer_id from sales_2015
+union
+select customer_id from customer_20_60
+order by customer_id;
