@@ -15,6 +15,16 @@
 
 --- Answer ---
 
-Select * from customer;
-Select * from products;
 Select * from sales;
+Select * from customer;
+
+SELECT
+  s.customer_id,
+  c.customer_name,
+  SUM(s.quantity) AS items_bought
+FROM sales AS s
+INNER JOIN customer AS c
+  ON s.customer_id = c.customer_id
+GROUP BY s.customer_id, c.customer_name
+ORDER BY items_bought DESC
+LIMIT 100;

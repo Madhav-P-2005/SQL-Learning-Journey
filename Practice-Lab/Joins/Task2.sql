@@ -14,3 +14,17 @@
 
 
 --- Answer ---
+
+Select * from sales;
+Select * from products;
+
+SELECT
+  p.brand_name,
+  SUM(s.quantity) AS total_items_sold
+FROM products AS p
+INNER JOIN sales AS s
+  ON p.product_id = s.product_id
+WHERE p.sub_category = 'Men/Shoes' 
+GROUP BY p.brand_name
+ORDER BY total_items_sold DESC 
+LIMIT 2;
