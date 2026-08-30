@@ -608,3 +608,23 @@ Select customer_id from sales_2015
 union
 select customer_id from customer_20_60
 order by customer_id;
+
+--- SUBQUERY :- Is a query within a query . These subqueries can reside in the WHERE clause , the FROM clause , or the SELECT clause .
+
+-- Using in WHERE Clause --
+select * from sales
+where customer_id in (select customer_id from customer where age>60);
+
+-- Using in FROM Clause --
+Select 
+      p.product_id,
+	  p.product_name,
+	  p.category,
+	  s.quantity
+from product as p
+left join (select product_id,
+                  sum(quantity) as quantity
+				  from sales group by product_id) as s
+on p.product_id=s.product_id
+order by s.quantity desc;
+	  
