@@ -627,4 +627,3 @@ left join (select product_id,
 				  from sales group by product_id) as s
 on p.product_id=s.product_id
 order by s.quantity desc;
-	  
