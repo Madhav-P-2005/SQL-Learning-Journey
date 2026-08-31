@@ -611,19 +611,28 @@ order by customer_id;
 
 --- SUBQUERY :- Is a query within a query . These subqueries can reside in the WHERE clause , the FROM clause , or the SELECT clause .
 
--- Using in WHERE Clause --
+-- Use-Case with WHERE Part --
 select * from sales
 where customer_id in (select customer_id from customer where age>60);
 
--- Using in FROM Clause --
+-- Use-Case with FROM Part --
 Select 
       p.product_id,
 	  p.product_name,
 	  p.category,
-	  s.quantity
+	  sub_query_result.quantity
 from product as p
 left join (select product_id,
                   sum(quantity) as quantity
-				  from sales group by product_id) as s
-on p.product_id=s.product_id
-order by s.quantity desc;
+				  from sales group by product_id) as sub_query_result
+on p.product_id=sub_query_result.product_id
+order by sub_query_result.quantity desc;
+
+-- Use-Case with Select Part --
+
+Select 
+      Customer_id,
+	  Order_line,
+	  (Select customer_name from customer where customer.customer_id=sales.customer_id)
+from sales
+order by customer_id;
