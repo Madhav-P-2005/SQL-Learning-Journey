@@ -636,3 +636,25 @@ Select
 	  (Select customer_name from customer where customer.customer_id=sales.customer_id)
 from sales
 order by customer_id;
+
+
+--- VIEW :- Is not a Physical table , it is a virtual table created by a query joining one or more tables.
+
+Create View logistics AS 
+Select a.order_line,
+       a.order_id,
+	   c.customer_name,
+	   c.city,
+	   c.state,
+	   c.country
+FROM sales as a
+LEFT JOIN customer as c
+on a.customer_id = c.customer_id
+order by a.order_line;
+
+--- Display View ---
+Select * from logistics;
+
+--- Drop View ---
+drop view logistics;
+--- CREATE OR REPLACE VIEW can be used instead of just CREATE VIEW
