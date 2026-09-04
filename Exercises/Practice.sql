@@ -657,4 +657,19 @@ Select * from logistics;
 
 --- Drop View ---
 drop view logistics;
+
 --- CREATE OR REPLACE VIEW can be used instead of just CREATE VIEW
+
+/*
+  INDEX :- Is a performance-tuning method of allowing faster retrival of records. An index creates an entry for each value that appears in the indexed columns .
+  - A simple index is an index on a single column , while a composite index is an index on two or more columns.
+*/
+
+Create index mon_idx on month_values(MM);
+
+--- Drop Index ---
+drop index mon_idx;
+
+--- Rename Index ---
+alter index mon_idx, 
+rename to new_index_name;
