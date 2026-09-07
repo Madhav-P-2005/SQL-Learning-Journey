@@ -673,3 +673,4 @@ drop index mon_idx;
 --- Rename Index ---
 alter index mon_idx, 
 rename to new_index_name;
+
