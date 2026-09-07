@@ -34,4 +34,4 @@ Select
 	  sum(s.sales) as total_sales,
 	  sum(s.quantity) as total_quantity
 from product as p left join sales as s on p.product_id = s.product_id 
-group by p.product_id;	  
+group by p.product_id;
