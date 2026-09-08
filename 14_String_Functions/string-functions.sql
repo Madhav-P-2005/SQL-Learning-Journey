@@ -24,13 +24,18 @@ select customer_name,
 from customer;
 
 --- TRIM :- This function removes all specified characters either from the begining or the end of a string 
-Select trim(leading from '        Start-Tech Academy   ')     -- acts as ltrim
-Select trim(trailing ' ' from '   Start-Tech Academy   ')     -- acts as rtrim
-Select trim(both ' ' from '    Start-Tech Academy    ')       -- acts as ltrim and rtrim 
-Select trim('    Start-Tech Academy    ')                     -- acts as ltrim and rtrim 
+Select trim(leading from '        Start-Tech Academy   ')  -- acts as ltrim
+Select trim(trailing ' ' from '   Start-Tech Academy   ') -- acts as rtrim
+Select trim(both ' ' from '    Start-Tech Academy    ') -- acts as ltrim and rtrim 
+Select trim('    Start-Tech Academy    ') -- acts as ltrim and rtrim 
 
 --- RTRIM :- This function removes all specified characters from the right-hand side of a string.
 Select rtrim('    Start-Tech Academy   ');
 
 --- LTRIM :- This function removes all specified characters from the left-hand side of string.
 Select ltrim('    Start-Tech Academy   ');
+
+--- Concat :- || operator allows you to concatenate 2 or more strings together 
+
+select * from customer;
+Select customer_name , city||' ,  '||state||'  ,  '||country as address from customer;
