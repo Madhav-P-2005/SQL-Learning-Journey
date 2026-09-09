@@ -39,3 +39,30 @@ Select ltrim('    Start-Tech Academy   ');
 
 select * from customer;
 Select customer_name , city||' ,  '||state||'  ,  '||country as address from customer;
+
+--- Substring :- It is a function allows you to extract a substring from a string
+
+--- To Get AB ---
+Select * from customer;
+Select customer_id,
+       customer_name,
+	   substring(customer_id for 2) as cust_group
+from customer
+where  substring(customer_id for 2) = 'AB';
+
+--- To Get remaining 5 characters ---
+Select customer_id,
+       customer_name,
+	   substring(customer_id from 4 for 5) as cust_group
+from customer
+where substring(customer_id for 2) = 'AB';
+
+
+--- String_AGG :- It concatenates input values into a string, seperated by delimiter
+
+select * from sales order by order_id;
+-- ex :- CA-2014-100090  attach :- OFF-BI-10001597 , FUR-TA-10003715
+Select order_id,
+       string_agg(product_id, ', ')
+from sales
+group by order_id;
