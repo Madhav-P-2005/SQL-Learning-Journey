@@ -43,4 +43,4 @@ Select order_line, sales , round(sales) from sales order by sales desc;
 
 Select * from customer;
 
-Select power(age, 2) , age from Customer; 
+Select power(age, 2) , age from Customer;
