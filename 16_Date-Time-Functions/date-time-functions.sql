@@ -26,12 +26,18 @@ order by time_taken desc;
 
 --- extract day ---
 
-Select EXTRACT(DAY  from '2014-04-25');
+Select EXTRACT(day from current_date);
+
+--- extract hour ---
+
+Select current_timestamp, extract(hour from current_timestamp);
 
 --- extract minute ---
 
-Select extract(minute from '08:44:21');
+Select extract(minute from current_time);
 
-Select order_line, 
-       extract(EPOCH from (ship_date - order-date))
+--- difference btw two dates in seconds ---
+Select order_date, 
+       ship_date,
+       (extract(epoch from ship_date) - extract(epoch from order_date)) as seconds_taken
 from sales;
