@@ -9,3 +9,4 @@
  4) Behind the scenes , the window function can access more than just the current row of the query result. 
 
 */
+
