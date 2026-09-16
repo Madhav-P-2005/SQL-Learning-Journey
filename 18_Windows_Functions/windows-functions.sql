@@ -12,3 +12,6 @@
 
 select * from customer limit 10;
 
+Select * from sales limit 10;
+
+Select a.*
