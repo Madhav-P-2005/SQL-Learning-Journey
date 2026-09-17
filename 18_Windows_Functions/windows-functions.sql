@@ -14,4 +14,18 @@ select * from customer limit 10;
 
 Select * from sales limit 10;
 
-Select a.*
+Select a.*, b.order_num , b.sales_total, b.quantity_total, b.profit_total
+from customer as a
+left join (select customer_id , count(distinct order_id) as order_num , sum(sales) as sales_total , sum(quantity) as quantity_total, 
+            sum(profit) as profit_total from sales group by customer_id) as b
+on a.customer_id=b.customer_id;
+
+Select * from sales where customer_id = 'AA-10315' order by order_id;
+
+create table customer_order as (Select a.*, b.order_num , b.sales_total, b.quantity_total, b.profit_total
+from customer as a
+left join (select customer_id , count(distinct order_id) as order_num , sum(sales) as sales_total , sum(quantity) as quantity_total, 
+            sum(profit) as profit_total from sales group by customer_id) as b
+on a.customer_id=b.customer_id);
+
+Select * from customer_order;
