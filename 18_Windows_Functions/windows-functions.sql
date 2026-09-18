@@ -38,3 +38,4 @@ from customer_order;
 Select * from (Select customer_id , customer_name , state , order_num , ROW_NUMBER() over (partition by state order by order_num desc) as row_number
 from customer_order) as a where a.row_number <=3;
 
+
