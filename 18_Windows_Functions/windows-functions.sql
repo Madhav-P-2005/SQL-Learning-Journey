@@ -8,7 +8,6 @@
 
  4) Behind the scenes , the window function can access more than just the current row of the query result. 
 
-
 */
 
 select * from customer limit 10;
@@ -43,5 +42,27 @@ from customer_order) as a where a.row_number <=3;
 
 --- Rank :- When using Rank, it will escape somRanking within parition , with gaps and same ranking for tied values 
 
+--- Dense Rank :- When using Dense Rank , it will never skip any Rank . 
 
---- Dense Rank :- 
+Select customer_id , customer_name , state , order_num ,
+row_number() over (partition by state order by order_num desc) as row_number,
+rank() over (partition by state order by order_num desc) as rank_number,
+dense_rank() over (partition by state order by order_num desc) as dense_rank_number
+from customer_order;
+
+--- CTE(Common Table Expressions) :- A CTE is a temporary named result set created using WITH, which you can use like a table within the same SQL query.
+
+-- Example (Coding Exercise 44):- 
+with RankedEmployees as (Select FirstName, 
+       LastName, 
+       Salary, 
+Rank() over (order by Salary desc) as Rank,
+DENSE_RANK() over (order by Salary desc) as DenseRank
+from Employees
+)  Select FirstName, 
+          LastName, 
+          Salary, 
+          Rank, 
+          DenseRank
+   from RankedEmployees 
+   where Rank<=3;
