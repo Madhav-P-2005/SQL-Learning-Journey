@@ -66,5 +66,3 @@ from Employees
           DenseRank
    from RankedEmployees 
    where Rank<=3;
-
-   
