@@ -65,4 +65,8 @@ from Employees
           Rank, 
           DenseRank
    from RankedEmployees 
-   where Rank<=3;
+   where Rank<=3; 
+
+
+--- NTILE :- This function divide rows within a partition as equally as possible into n groups, and assign each row its group number.
+
