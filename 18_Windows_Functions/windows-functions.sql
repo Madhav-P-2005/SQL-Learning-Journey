@@ -69,4 +69,3 @@ from Employees
 
 
 --- NTILE :- This function divide rows within a partition as equally as possible into n groups, and assign each row its group number.
-
