@@ -10,11 +10,15 @@ create table emp_name (
 
 truncate table emp_name;
 
-insert into emp_name (s_no , first_name , middle_name , last_name)  values(1,  'Paul' , 'Van' , 'Hugh');
-insert into emp_name (s_no , first_name , middle_name , last_name)  values(2,  'David',       , 'Flashing');
-insert into emp_name (s_no , first_name , middle_name , last_name)  values(3,         , 'Lena', 'Radford');
-insert into emp_name (s_no , first_name , middle_name , last_name)  values(4,  'Henry',       , 'Goldwyn');
-insert into emp_name (s_no , first_name , middle_name , last_name)  values(5,                 , 'Holden');
-insert into emp_name (s_no , first_name , middle_name , last_name)  values(6,  'Erin' , 'T'   , 'Hull');
+insert into emp_name (s_no , first_name , middle_name , last_name)  values(1,  'Paul' , 'Van'  , 'Hugh');
+insert into emp_name (s_no , first_name ,               last_name)  values(2,  'David',          'Flashing');
+insert into emp_name (s_no ,              middle_name , last_name)  values(3,           'Lena' , 'Radford');
+insert into emp_name (s_no , first_name ,               last_name)  values(4,  'Henry',          'Goldwyn');
+insert into emp_name (s_no ,                            last_name)  values(5,                    'Holden');
+insert into emp_name (s_no , first_name , middle_name , last_name)  values(6,  'Erin' , 'T' ,     'Hull');
 
 Select * from emp_name;
+
+Select *, 
+       coalesce(first_name,middle_name,last_name) as name_corr,
+	   concat(first_name, middle_name, last_name) from emp_name;
