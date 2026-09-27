@@ -22,4 +22,6 @@ Select to_date('26122018' , 'DDMMYYYY');
 
 --- Converting String to a Number --- 
 
-Select to_number()
+Select to_number('1210.73', '9999.99');
+
+Select to_number('$2,045.876' , 'L9,999.999');
