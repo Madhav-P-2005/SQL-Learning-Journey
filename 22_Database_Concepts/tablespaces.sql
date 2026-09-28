@@ -6,11 +6,22 @@
 
 */
 
---- Syntax :- CREATE TABLESPACE <tablespace name> LOCATION <location on drive>;
+/* 
+   Syntax :- 
+
+       CREATE TABLESPACE <tablespace name> LOCATION <location on drive>;
+
+	   CREATE TABLE first_table (test_column int) TABLESPACE newspace;
+
+	   SET default_tablespace = newspace;
+	   CREATE TABLE second_table(test_column int);
+
+*/
 
 --- Creating New TableSpace
 create tablespace NewSpace location 'E:\Program Files\PostgreSQL\18\data\Storage';
 
 --- Creating a New Table 
-
 create table customer_test(i int) tablespace NewSpace;
+
+Select * from pg_tablespace;
