@@ -1,5 +1,3 @@
---- COPY the CSV Data ---
-
 --- Create Table Structure ---
 CREATE TABLE Student_Scores (
     id int,
@@ -31,3 +29,6 @@ CSV HEADER;
 Select * from Student_Scores;
 
 -- Q1) Calculate the average math_score for each career_aspiration. Order the results by the average score in descending order.
+
+-- Ans 1 --
+Select career_aspiration, avg(math_score) as average_math_score from Student_Scores group by career_aspiration order by average_math_score desc;
