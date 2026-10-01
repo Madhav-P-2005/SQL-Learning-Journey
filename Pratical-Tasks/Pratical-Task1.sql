@@ -32,3 +32,7 @@ Select * from Student_Scores;
 
 -- Ans 1 --
 Select career_aspiration, avg(math_score) as average_math_score from Student_Scores group by career_aspiration order by average_math_score desc;
+
+-- Q2) Find the career_aspirations that have an average english_score greater than 75. Display the career aspiration and the average score.
+
+-- Ans 2 --
