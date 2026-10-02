@@ -36,3 +36,5 @@ Select career_aspiration, avg(math_score) as average_math_score from Student_Sco
 -- Q2) Find the career_aspirations that have an average english_score greater than 75. Display the career aspiration and the average score.
 
 -- Ans 2 --
+
+
