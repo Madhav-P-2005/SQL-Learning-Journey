@@ -51,3 +51,11 @@ Select first_name, last_name , career_aspiration , physics_score ,
 	   from Student_Scores;
 
 -- Q5) For each student, create a new column full_name by concatenating first_name and last_name with a space in between. Show the full_name and email columns where the email contains the string "academy".
+
+-- Ans 5 --
+Select first_name || ' ' || last_name as full_name , email from Student_Scores where email like '%academy%';
+
+-- Q6) Calculate the lowest (FLOOR), highest (CEIL), and average (ROUND to two decimal places) chemistry_score for each career aspirant. Display the career aspirants , lowest score, highest score, and average score.
+
+-- Ans 6 --
+Select  career_aspiration , floor(min(chemistry_score)) as lowest_score, ceil(max(chemistry_score)) as highest_score, avg(round(chemistry_score, 2)) from Student_Scores group by career_aspiration;
