@@ -36,5 +36,18 @@ Select career_aspiration, avg(math_score) as average_math_score from Student_Sco
 -- Q2) Find the career_aspirations that have an average english_score greater than 75. Display the career aspiration and the average score.
 
 -- Ans 2 --
+Select career_aspiration , avg(english_score) as average_english_score from Student_Scores  group by career_aspiration having avg(english_score) > 75 order by average_english_score desc;
 
+-- Q3) Identify students who have a math_score higher than the school's average math score. List their first_name, last_name, and math_score.
 
+-- Ans 3 --
+Select first_name , last_name , math_score from Student_Scores where math_score > (Select avg(math_score) from Student_Scores);
+
+-- Q4) Rank students within each career_aspiration category by their physics_score in descending order. Display the first_name, last_name, career_aspiration, physics_score, and the rank.
+
+-- Ans 4 --
+Select first_name, last_name , career_aspiration , physics_score , 
+       rank() over (partition by career_aspiration order by physics_score desc) as rank_in_career
+	   from Student_Scores;
+
+-- Q5) For each student, create a new column full_name by concatenating first_name and last_name with a space in between. Show the full_name and email columns where the email contains the string "academy".
