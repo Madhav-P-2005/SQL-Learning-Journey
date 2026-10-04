@@ -55,7 +55,43 @@ Select first_name, last_name , career_aspiration , physics_score ,
 -- Ans 5 --
 Select first_name || ' ' || last_name as full_name , email from Student_Scores where email like '%academy%';
 
--- Q6) Calculate the lowest (FLOOR), highest (CEIL), and average (ROUND to two decimal places) chemistry_score for each career aspirant. Display the career aspirants , lowest score, highest score, and average score.
+-- Q6) Calculate the lowest (FLOOR), highest (CEIL), and average (ROUND to two decimal places) chemistry_s core for each career aspirant. Display the career aspirants , lowest score, highest score, and average score.
 
 -- Ans 6 --
 Select  career_aspiration , floor(min(chemistry_score)) as lowest_score, ceil(max(chemistry_score)) as highest_score, avg(round(chemistry_score, 2)) from Student_Scores group by career_aspiration;
+
+-- Q7) Find career aspirations where the average history_score is above 85 and at least 5 students aspire to that career. List the career_aspiration and the average score.
+
+-- Ans 7 --
+Select career_aspiration , avg(history_score) as average_history_score from Student_Scores group by career_aspiration having avg(history_score) > 85 and count(id)>=5;
+
+-- Q8) Identify students who score above average in both biology and chemistry, compared to the school's average for those subjects. Display their id, first_name, last_name, biology_score, and chemistry_score.
+
+-- Ans 8 --
+Select id,first_name, last_name, biology_score, chemistry_score from Student_Scores where biology_score > (select avg(biology_score) from Student_Scores) and chemistry_score > (select avg(chemistry_score) from Student_Scores);
+
+-- Q9) Calculate the percentage of absence days for each student relative to the total absence days recorded for all students. Display the id, first_name, last_name, and the calculated percentage, rounded to two decimal places. Order the results by the percentage in descending ord.
+
+-- Ans 9 --
+Select id, first_name, last_name , 
+       round(absence_days::decimal / sum(absence_days) over() * 100 , 2) as calculated_absence_percentage 
+from Student_Scores 
+order by calculated_absence_percentage desc;
+
+-- Q10) Identify students who have scores above 80 in at least three out of the six subjects: math, history, physics, chemistry, biology, and English. Display their id, first_name, last_name, and the count of subjects where they scored above 80.
+
+-- Ans 10 --
+Select id, first_name, last_name, 
+    (CASE when math_score > 80 then 1 else 0 end + 
+	 CASE when history_score > 80 then 1 else 0 end + 
+	 CASE when physics_score > 80 then 1 else 0 end +
+	 CASE when chemistry_score > 80 then 1 else 0 end +
+	 CASE when biology_score > 80 then 1 else 0 end +
+	 CASE when english_score > 80 then 1 else 0 end) as subjects_above_80
+from Student_Scores
+where (CASE when math_score > 80 then 1 else 0 end + 
+	 CASE when history_score > 80 then 1 else 0 end + 
+	 CASE when physics_score > 80 then 1 else 0 end +
+	 CASE when chemistry_score > 80 then 1 else 0 end +
+	 CASE when biology_score > 80 then 1 else 0 end +
+	 CASE when english_score > 80 then 1 else 0 end)>=3;
