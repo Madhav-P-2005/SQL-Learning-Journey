@@ -12,7 +12,7 @@ CREATE TABLE Student_Scores (
 	career_aspiration varchar,
 	math_score int,
 	history_score int,
-	physics_score int,
+	physics_score int, 
 	chemistry_score int,
 	biology_score int,
 	english_score int,
