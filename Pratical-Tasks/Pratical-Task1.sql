@@ -16,7 +16,7 @@ CREATE TABLE Student_Scores (
 	chemistry_score int,
 	biology_score int,
 	english_score int,
-	geography_score int
+	geography_score int 
 );
 
 --- Import the CSV ---
