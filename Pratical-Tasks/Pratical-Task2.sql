@@ -107,7 +107,7 @@ Select store_id,
 	             then transaction_qty * unit_price 
 				 end) as average_non_revenue_peak_hours
 from Coffee_Shop_Sales
-group by store_id , store_location ,product_category;
+group by store_id , store_location , product_category;
 
 /*
 
@@ -122,3 +122,29 @@ Purpose :- Identify pricing inconsistencies or opportunities for price stabiliza
 */
 
 -- Ans 6 --
+Select product_id,
+       product_type,
+	   product_category,
+	   product_detail,
+	   max(unit_price) - min(unit_price) as price_fluctuations
+from Coffee_Shop_Sales
+group by product_id , product_type ,product_category, product_detail
+order by price_fluctuations desc limit 1;
+
+/* 
+
+VII) Product Availability Across All Stores :-
+
+Products Sold in Every Store at Least Once :-
+
+7) List all products that have been sold in every store at least once.
+
+Purpose :- Recognize core products that are essential across all locations.
+
+*/
+
+-- Ans 7 -- 
+SELECT product_detail
+FROM Coffee_Shop_Sales
+GROUP BY product_detail
+HAVING COUNT(DISTINCT store_id) = (SELECT COUNT(DISTINCT store_id) FROM Coffee_Shop_Sales);
