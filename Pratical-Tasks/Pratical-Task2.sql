@@ -148,3 +148,76 @@ SELECT product_detail
 FROM Coffee_Shop_Sales
 GROUP BY product_detail
 HAVING COUNT(DISTINCT store_id) = (SELECT COUNT(DISTINCT store_id) FROM Coffee_Shop_Sales);
+
+/*
+
+VIII) Transaction Quantity Deviations :-
+
+Top 5 Days with the Highest Deviation from Average Daily Transaction Quantity :- 
+
+8) Identify the top 5 days where the total transaction quantity deviated the most from the average daily transaction quantity.
+
+Purpose :- Detect anomalies or events impacting sales volume for further investigation.
+
+*/
+
+-- Ans 8 --
+-- Common Table Expression Approach --
+-- Step 1 :-  Calculate total transactions for each day
+WITH Daily_Transactions AS (
+    SELECT 
+        transaction_date,
+        SUM(transaction_qty) AS total_transaction_qty
+    FROM Coffee_Shop_Sales  
+    GROUP BY transaction_date
+),
+-- Step 2 :- Calculate the overall average of daily totals
+Daily_Average AS (
+    SELECT 
+        transaction_date,
+        total_transaction_qty,
+        AVG(total_transaction_qty) OVER () AS average_qty
+    FROM Daily_Transactions
+)
+-- Step 3 :-  Calculate deviation from the average
+-- deviation = |daily total - average daily total|
+SELECT 
+    transaction_date,
+    total_transaction_qty,
+    average_qty,
+    ABS(total_transaction_qty - average_qty) AS deviation
+FROM Daily_Average
+-- Step 4 :-  Show the days with the largest deviation
+ORDER BY deviation DESC
+LIMIT 5;
+
+-- Sir's approach --
+Select transaction_date,
+       total_transaction_qty,
+	   average_qty,
+	   deviation
+from (
+   Select transaction_date,
+          sum(transaction_qty) as total_transaction_qty,
+		  avg(sum(transaction_qty)) over() as average_qty,
+		  abs(sum(transaction_qty) - avg(sum(transaction_qty)) over()) as deviation
+   from Coffee_Shop_Sales 
+   group by transaction_date
+) as Daily_Transactions
+order by deviation desc 
+limit 5;
+
+/*
+
+XI) High-Value Store Analysis :- 
+
+Store Location and Total Revenue Where Average Unit Price > $2.50 :-
+
+9) Retrieve store locations and total revenue for stores where the average unit price is greater than $2.50.
+
+Purpose :- Focus on stores with higher-priced sales for targeted strategies.
+
+*/
+
+-- Ans 9 --
+Select * from Coffee_Shop_Sales;
