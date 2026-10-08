@@ -220,5 +220,3 @@ Purpose :- Focus on stores with higher-priced sales for targeted strategies.
 */
 
 -- Ans 9 --
-Select * from Coffee_Shop_Sales;
-
