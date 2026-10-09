@@ -220,3 +220,47 @@ Purpose :- Focus on stores with higher-priced sales for targeted strategies.
 */
 
 -- Ans 9 --
+Select store_location,
+       sum(transaction_qty * unit_price) as total_revenue
+from Coffee_Shop_Sales 
+group by store_id, store_location having avg(unit_price) > 2.50 
+order by total_revenue desc;
+
+/* 
+   
+X) Product Sales Efficiency :- 
+
+Product with the Highest Average Sales Quantity per Transaction in Each Store :-
+
+10) Identify the product that has the highest average quantity sold per transaction in each store.
+
+Purpose :- Determine products that drive bulk purchases to enhance marketing efforts.
+  
+*/
+
+-- Ans 10 --
+Select * from Coffee_Shop_Sales;
+-- My Common Table Expression Approach --
+-- Finding Products Average Quantity --
+With Product_Averages as (
+      Select store_id,
+	         product_id,
+			 avg(transaction_qty) as average_quantity
+from Coffee_Shop_Sales group by store_id , product_id
+),
+-- Finding Highest Average Quantity --
+With Highest_Average_Quantity as (
+       Select store_id,
+	          product_id,
+			  average_quantity,
+			  rank() over (partition by store_id 
+			  order by average_quantity desc) as product_rank
+from Product_Averages  
+)
+-- Filter the winners --
+Select store_id,
+       product_id,
+       average_quantity,
+	   product_rank
+from Highest_Average_Quantity
+where product_rank = 1;
