@@ -249,7 +249,7 @@ With Product_Averages as (
 from Coffee_Shop_Sales group by store_id , product_id
 ),
 -- Finding Highest Average Quantity --
-With Highest_Average_Quantity as (
+Highest_Average_Quantity as (
        Select store_id,
 	          product_id,
 			  average_quantity,
@@ -264,3 +264,35 @@ Select store_id,
 	   product_rank
 from Highest_Average_Quantity
 where product_rank = 1;
+
+-- Sir's Approach --
+Select t1.store_id,
+       t1.store_location,
+	   t1.product_id,
+	   t1.product_detail,
+	   t1.avg_quantity
+from (
+    Select 
+	    store_id,
+		store_location,
+		product_id,
+		product_detail,
+		avg(transaction_qty) as avg_quantity  
+   from Coffee_Shop_Sales
+   group by store_id,store_location,product_id,product_detail
+) t1
+join (
+   Select 
+      store_id,
+	  max(avg_quantity) as max_avg_quantity
+   from (
+     Select 
+	     store_id,
+		 product_id,
+		 avg(transaction_qty) as avg_quantity
+	 from Coffee_Shop_Sales
+	 group by store_id , product_id
+   )sub 
+   group by store_id
+) t2 on t1.store_id=t2.store_id and t1.avg_quantity=t2.max_avg_quantity
+order by t1.store_id;
