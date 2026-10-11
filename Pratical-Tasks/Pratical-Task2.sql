@@ -266,6 +266,8 @@ from Highest_Average_Quantity
 where product_rank = 1;
 
 -- Sir's Approach --
+-- 1) Calculate the average quantity sold for each product in each store
+--  This gives us the average quantity for every store-product combination.
 Select t1.store_id,
        t1.store_location,
 	   t1.product_id,
@@ -281,6 +283,9 @@ from (
    from Coffee_Shop_Sales
    group by store_id,store_location,product_id,product_detail
 ) t1
+-- 2) Find the highest average quantity for each store
+--    First, calculate the average quantity for each store-product combination.
+--    Then, use MAX() to get the highest average quantity within each store.
 join (
    Select 
       store_id,
@@ -294,5 +299,8 @@ join (
 	 group by store_id , product_id
    )sub 
    group by store_id
-) t2 on t1.store_id=t2.store_id and t1.avg_quantity=t2.max_avg_quantity
+) t2
+-- 3) Match each store's highest average quantity with its product
+--    Keep only the products whose average quantity equals the maximum average quantity of their respective store.
+on t1.store_id=t2.store_id and t1.avg_quantity=t2.max_avg_quantity
 order by t1.store_id;
