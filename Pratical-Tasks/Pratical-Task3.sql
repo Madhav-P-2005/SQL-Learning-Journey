@@ -31,4 +31,14 @@ I) EV Distribution by State :-
 */
 
 -- Ans 1 --
-Select count(vin) as total_number_of_electric_vehicles from electric_vehicle_population group by state;
+Select state, count(vin) as total_number_of_electric_vehicles from electric_vehicle_population group by state order by total_number_of_electric_vehicles desc;  -- my way 
+
+/*
+
+II) EVs in Seattle :-
+
+2) Write a query to extract all electric vehicles located in the city of Seattle ?
+
+*/
+
+-- Ans 2 --
