@@ -42,3 +42,5 @@ II) EVs in Seattle :-
 */
 
 -- Ans 2 --
+Select * from electric_vehicle_population;
+Select make , electric_vehicle_type, electric_range from electric_vehicle_population where city='Seattle' and electric_range!=0;
