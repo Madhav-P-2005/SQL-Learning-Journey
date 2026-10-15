@@ -133,4 +133,25 @@ IX) Electric Range Ranking :-
 */
 
 -- Ans 9 --
+Select make, model , electric_range,
+rank() over(partition by county order by electric_range desc) as highest_range_rank
+from electric_vehicle_population;
+
+/*
+
+X) Clean Alternative Fuel Vehicle (CAFV) Analysis with CTEs :-
+
+ Write a query using a Common Table Expression (CTE) to :- 
+
+  10.1) Calculate the total number of electric vehicles and CAFV-eligible vehicles for each state. 
+
+  10.2) Compute the percentage of CAFV-eligible vehicles for each state.
+
+*/
+
+-- Ans 10.1 & 10.2 --
 Select * from electric_vehicle_population;
+
+With Total_Number_Of_Electric_and_CAFV_eligible_Vehicles as (
+     Select count(*) from electric_vehicle_population where cafv_eligibility='Clean Alternative Fuel Vehicle Eligible')
+, Select 
