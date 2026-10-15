@@ -42,5 +42,95 @@ II) EVs in Seattle :-
 */
 
 -- Ans 2 --
+Select *  from electric_vehicle_population where city='Seattle';
+
+/*
+
+III) EVs by County :-
+
+3) Write a query to display the total number of electric vehicles for each county ?
+
+*/
+
+-- Ans 3 --
+Select county , count(*) as total_number_of_electric_vehicles from electric_vehicle_population group by county order by total_number_of_electric_vehicles desc;
+
+/*
+  
+IV) MSRP Comparison :- 
+
+4) Write a query to find all electric vehicles with a Base MSRP greater than the average MSRP of all vehicles in the dataset ?
+   
+*/
+
+-- Ans 4 --
+Select * from electric_vehicle_population where base_msrp > (Select avg(base_msrp) from electric_vehicle_population);
+
+/*
+
+V) Plug-in Hybrid Analysis :-
+
+5) Write a query to list all Plug-in Hybrid Electric Vehicles (PHEV) from King County with an electric range greater than 50 miles ?
+   
+*/
+
+-- Ans 5 --
 Select * from electric_vehicle_population;
-Select make , electric_vehicle_type, electric_range from electric_vehicle_population where city='Seattle' and electric_range!=0;
+Select * from electric_vehicle_population where electric_vehicle_type='Plug-in Hybrid Electric Vehicle (PHEV)' and electric_range>50 and county='King';
+
+/*
+
+VI) High-Concentration Cities :-
+
+6) Write a query to count the number of electric vehicles in each city, but only include cities with more than 100 vehicles ?
+   
+*/
+
+-- Ans 6 --
+Select city , count(vin) as number_of_electric_vehicles from electric_vehicle_population  group by city having count(vin) > 100;
+
+/*
+
+VII) Long-Range Vehicles by County :-
+
+7) Write a query to list the Make and Model of electric vehicles located in counties where the average electric range exceeds 150 miles ?
+   
+*/
+
+-- Ans 7 --
+Select * from electric_vehicle_population;
+
+SELECT make , model FROM electric_vehicle_population where county in (Select county from electric_vehicle_population group by county having avg(electric_range)>150);
+
+/*
+
+VIII) Vehicle Categorization :- 
+
+ Write a query to :- 
+
+ 8.1) Categorize vehicles as either "Affordable" (Base MSRP ≤ $40,000) or "Expensive" (Base MSRP > $40,000) ? 
+
+ 8.2) Find the total number of vehicles in each category ? 
+
+*/
+
+-- Ans 8.1 & 8.2 --
+Select 
+       CASE 
+	          When base_msrp <= 40000 then 'Affordable' 
+			  ELSE 'Expensive'
+	   END as vehicle_category,
+count(*) as total_number_of_vehicles
+from electric_vehicle_population 
+group by vehicle_category;
+
+/* 
+
+IX) Electric Range Ranking :-
+
+9) Write a query to display the Make, Model, and Electric Range of each vehicle along with its rank based on the electric range within its county (highest range first) ? 
+
+*/
+
+-- Ans 9 --
+Select * from electric_vehicle_population;
