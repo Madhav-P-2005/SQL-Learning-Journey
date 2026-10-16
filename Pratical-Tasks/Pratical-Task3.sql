@@ -150,8 +150,14 @@ X) Clean Alternative Fuel Vehicle (CAFV) Analysis with CTEs :-
 */
 
 -- Ans 10.1 & 10.2 --
-Select * from electric_vehicle_population;
-
 With Total_Number_Of_Electric_and_CAFV_eligible_Vehicles as (
-     Select count(*) from electric_vehicle_population where cafv_eligibility='Clean Alternative Fuel Vehicle Eligible')
-, Select 
+     Select count(*) as total_number_of_electric_vehicles , state ,
+	 sum(CASE 
+	      When cafv_eligibility='Clean Alternative Fuel Vehicle Eligible' then 1
+		  else 0
+		  End) as total_number_of_cafv_eligible_vehicles 
+	 from electric_vehicle_population
+	 group by state
+)
+Select state , total_number_of_electric_vehicles, total_number_of_cafv_eligible_vehicles , ((total_number_of_cafv_eligible_vehicles::numeric/total_number_of_electric_vehicles::numeric) * 100) as percentage_of_cafv_eligible
+from Total_Number_Of_Electric_and_CAFV_eligible_Vehicles;
