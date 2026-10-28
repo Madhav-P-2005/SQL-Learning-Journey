@@ -8,3 +8,4 @@ SELECT
          WHEN (A = B) OR (A = C) OR (B = C) then 'Isosceles'
      END
 FROM TRIANGLES;
+
