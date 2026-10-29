@@ -7,5 +7,4 @@ SELECT
          WHEN (A != B) AND (B != C) AND (A != C) then 'Scalene'
          WHEN (A = B) OR (A = C) OR (B = C) then 'Isosceles'
      END
-FROM TRIANGLES;
-
+FROM TRIANGLES; 
